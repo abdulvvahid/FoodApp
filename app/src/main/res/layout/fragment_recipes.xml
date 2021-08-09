@@ -6,10 +6,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/light_gray"
         tools:context=".RecipesFragment">
 
         <com.todkars.shimmer.ShimmerRecyclerView
-            android:id="@+id/shimmer_recycler_view"
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginHorizontal="10dp"
@@ -19,8 +20,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shimmer_recycler_item_count="10"
-            app:shimmer_recycler_layout="@layout/list_item_shimmer_layout" />
+            app:shimmer_recycler_item_count="3"
+            app:shimmer_recycler_layout="@layout/list_item_recipes"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="60dp"

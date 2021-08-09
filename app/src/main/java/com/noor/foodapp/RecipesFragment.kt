@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.noor.foodapp.databinding.FragmentRecipesBinding
 
 class RecipesFragment : Fragment() {
@@ -17,6 +18,9 @@ class RecipesFragment : Fragment() {
     ): View? {
         binding = FragmentRecipesBinding.inflate(layoutInflater, container, false)
         // Inflate the layout for this fragment
+
+        binding.recyclerView.showShimmer()
+
         return binding.root
     }
 
