@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'androidx.navigation.safeargs'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -62,6 +63,10 @@ dependencies {
 
     // GSON -- https://github.com/google/gson
     implementation 'com.google.code.gson:gson:2.8.7'
+
+    // Hilt -- https://developer.android.com/training/dependency-injection/hilt-android
+    implementation "com.google.dagger:hilt-android:2.38.1"
+    kapt "com.google.dagger:hilt-compiler:2.38.1"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

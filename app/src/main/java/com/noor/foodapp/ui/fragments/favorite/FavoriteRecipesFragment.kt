@@ -1,26 +1,22 @@
-package com.noor.foodapp
+package com.noor.foodapp.ui.fragments.favorite
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.noor.foodapp.databinding.FragmentRecipesBinding
+import com.noor.foodapp.databinding.FragmentFavoriteRecipesBinding
 
-class RecipesFragment : Fragment() {
+class FavoriteRecipesFragment : Fragment() {
 
-    private lateinit var binding: FragmentRecipesBinding
+    private lateinit var binding: FragmentFavoriteRecipesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentRecipesBinding.inflate(layoutInflater, container, false)
+        binding = FragmentFavoriteRecipesBinding.inflate(layoutInflater, container, false)
         // Inflate the layout for this fragment
-
-        binding.recyclerView.showShimmer()
-
         return binding.root
     }
 
