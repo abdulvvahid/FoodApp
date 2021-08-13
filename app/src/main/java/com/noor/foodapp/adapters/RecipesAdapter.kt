@@ -11,11 +11,12 @@ import com.noor.foodapp.util.RecipesDiffUtil
 
 class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
 
-    private var recipe = emptyList<Result>()
+    private var recipes = emptyList<Result>()
 
     class MyViewHolder(
         private val binding: ListItemRecipesBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(result: Result) {
             binding.result = result
             binding.executePendingBindings()
@@ -36,15 +37,16 @@ class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(recipe[position])
+        val currentRecipe = recipes[position]
+        holder.bind(currentRecipe)
     }
 
-    override fun getItemCount(): Int = recipe.size
+    override fun getItemCount(): Int = recipes.size
 
     fun setData(newData: FoodRecipe) {
-        val recipeDiffUtil = RecipesDiffUtil(recipe, newData.results)
+        val recipeDiffUtil = RecipesDiffUtil(recipes, newData.results)
         val diffUtilResult = DiffUtil.calculateDiff(recipeDiffUtil)
-        recipe = newData.results
+        recipes = newData.results
         diffUtilResult.dispatchUpdatesTo(this)
     }
 }
