@@ -1,4 +1,4 @@
-package com.noor.foodapp
+package com.noor.foodapp.viewmodels
 
 import android.app.Application
 import android.content.Context
