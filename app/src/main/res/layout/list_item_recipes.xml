@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="result"
             type="com.noor.foodapp.models.Result" />
@@ -35,10 +36,10 @@
 
                 <ImageView
                     android:id="@+id/recipe_imageView"
+                    loadImageFromUrl="@{result.image}"
                     android:layout_width="200dp"
                     android:layout_height="0dp"
                     android:scaleType="centerCrop"
-                    loadImageFromUrl="@{result.image}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -90,9 +91,9 @@
 
                 <TextView
                     android:id="@+id/heart_textView"
+                    setNumberOfLikes="@{result.aggregateLikes}"
                     android:layout_width="26dp"
                     android:layout_height="18dp"
-                    setNumberOfLikes="@{result.aggregateLikes}"
                     android:textAlignment="center"
                     app:layout_constraintStart_toStartOf="@+id/description_textView"
                     app:layout_constraintTop_toBottomOf="@+id/heart_imageView" />
@@ -108,19 +109,19 @@
 
                 <TextView
                     android:id="@+id/clock_textView"
+                    setNumberOfTime="@{result.readyInMinutes}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    setNumberOfTime="@{result.readyInMinutes}"
                     android:textAlignment="center"
                     app:layout_constraintStart_toEndOf="@+id/heart_textView"
                     app:layout_constraintTop_toBottomOf="@+id/heart_imageView" />
 
                 <ImageView
                     android:id="@+id/leaf_imageView"
+                    setVeganColor="@{result.vegan}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    setVeganColor="@{result.vegan}"
                     app:layout_constraintEnd_toEndOf="@+id/leaf_textView"
                     app:layout_constraintStart_toStartOf="@+id/leaf_textView"
                     app:layout_constraintTop_toTopOf="@+id/heart_imageView"
@@ -128,10 +129,10 @@
 
                 <TextView
                     android:id="@+id/leaf_textView"
+                    setVeganColor="@{result.vegan}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    setVeganColor="@{result.vegan}"
                     android:text="Vegan"
                     android:textAlignment="center"
                     app:layout_constraintStart_toEndOf="@+id/clock_textView"

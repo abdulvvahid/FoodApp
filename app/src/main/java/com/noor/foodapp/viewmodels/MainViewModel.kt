@@ -4,17 +4,20 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.noor.foodapp.data.Repository
 import com.noor.foodapp.models.FoodRecipe
 import com.noor.foodapp.util.NetworkResult
-import dagger.hilt.android.scopes.ViewModelScoped
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import javax.inject.Inject
 
-class MainViewModel @ViewModelScoped constructor(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     private val repository: Repository,
     application: Application
 ): AndroidViewModel(application) {
@@ -32,7 +35,8 @@ class MainViewModel @ViewModelScoped constructor(
                 val response = repository.remote.getRecipes(queries)
                 recipesResponse.value = handleFoodRecipesResponse(response)
             } catch (e: Exception) {
-                recipesResponse.value = NetworkResult.Error("Recipes Not Found.")
+                recipesResponse.value = NetworkResult.Error("Recipes Not Found...")
+                Log.d("VAY","ViewModel Error: ${e.message.toString()}")
             }
         } else {
             recipesResponse.value = NetworkResult.Error("No Internet Connection.")
