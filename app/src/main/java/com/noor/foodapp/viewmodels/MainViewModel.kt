@@ -1,4 +1,4 @@
-package com.noor.foodapp
+package com.noor.foodapp.viewmodels
 
 import android.app.Application
 import android.content.Context
@@ -12,7 +12,6 @@ import com.noor.foodapp.data.Repository
 import com.noor.foodapp.models.FoodRecipe
 import com.noor.foodapp.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
