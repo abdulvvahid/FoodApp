@@ -20,7 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shimmer_recycler_item_count="3"
+            app:shimmer_recycler_item_count="6"
             app:shimmer_recycler_layout="@layout/list_item_recipes"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
