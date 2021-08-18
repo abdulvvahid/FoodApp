@@ -9,7 +9,11 @@
         android:id="@+id/recipesFragment"
         android:name="com.noor.foodapp.ui.fragments.recipes.RecipesFragment"
         android:label="fragment_recipes"
-        tools:layout="@layout/fragment_recipes" />
+        tools:layout="@layout/fragment_recipes" >
+        <action
+            android:id="@+id/action_recipesFragment_to_recipesBottomSheet"
+            app:destination="@id/recipesBottomSheet" />
+    </fragment>
     <fragment
         android:id="@+id/favoriteRecipesFragment"
         android:name="com.noor.foodapp.ui.fragments.favorite.FavoriteRecipesFragment"
@@ -20,4 +24,12 @@
         android:name="com.noor.foodapp.ui.fragments.foodjoke.FoodJokeFragment"
         android:label="fragment_food_joke"
         tools:layout="@layout/fragment_food_joke" />
+    <dialog
+        android:id="@+id/recipesBottomSheet"
+        android:name="com.noor.foodapp.ui.fragments.recipes.bootomsheet.RecipesBottomSheet"
+        android:label="RecipesBottomSheet" >
+        <action
+            android:id="@+id/action_recipesBottomSheet_to_recipesFragment"
+            app:destination="@id/recipesFragment" />
+    </dialog>
 </navigation>

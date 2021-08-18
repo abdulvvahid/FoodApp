@@ -32,6 +32,27 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="recipesBottomSheet">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-140" />
+                            <option name="y" value="348" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_recipesBottomSheet_to_recipesFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="recipesFragment">
                     <value>
                       <LayoutPositions>
@@ -40,6 +61,15 @@
                             <option name="x" value="-141" />
                             <option name="y" value="28" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_recipesFragment_to_recipesBottomSheet">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
