@@ -86,9 +86,8 @@ dependencies {
 
     // Room -- https://developer.android.com/jetpack/androidx/releases/room
     def room_version = "2.3.0"
-    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
-
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

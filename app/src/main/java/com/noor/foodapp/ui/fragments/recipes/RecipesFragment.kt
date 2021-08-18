@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.noor.foodapp.viewmodels.MainViewModel
 import com.noor.foodapp.adapters.RecipesAdapter
@@ -16,12 +17,13 @@ import com.noor.foodapp.util.Constants.Companion.API_KEY
 import com.noor.foodapp.util.NetworkResult
 import com.noor.foodapp.viewmodels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RecipesFragment : Fragment() {
 
     private lateinit var binding: FragmentRecipesBinding
-    private val mAdapter by lazy {RecipesAdapter()}
+    private val mAdapter by lazy { RecipesAdapter() }
     private lateinit var mainViewModel: MainViewModel
     private lateinit var recipesViewModel: RecipesViewModel
 
@@ -39,40 +41,61 @@ class RecipesFragment : Fragment() {
         // Inflate the layout for this fragment
 
         setupRecyclerView()
-        requestApiData()
+        readDatabase()
 
         return binding.root
-    }
-
-    private fun requestApiData() {
-        mainViewModel.getRecipes(recipesViewModel.applyQueries())
-        Log.d("VAY","Request Api Olusturuldu")
-        mainViewModel.recipesResponse.observe(viewLifecycleOwner, { response ->
-            Log.d("VAY","Observe Edildi.")
-            when(response) {
-                is NetworkResult.Success -> {
-                    Log.d("VAY","Network result basarili")
-                    hideShimmerEffect()
-                    response.data?.let { mAdapter.setData(it) }
-                }
-                is NetworkResult.Error -> {
-                    Log.d("VAY","Network result basarisiz")
-                    Log.d("VAY","Error : ${response.message.toString()}")
-                    hideShimmerEffect()
-                    Toast.makeText(requireContext(),response.message.toString(), Toast.LENGTH_LONG).show()
-                }
-                is NetworkResult.Loading -> {
-                    Log.d("VAY","Network result yukleniyor")
-                    showShimmerEffect()
-                }
-            }
-        })
     }
 
     private fun setupRecyclerView() {
         binding.recyclerView.adapter = mAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         showShimmerEffect()
+    }
+
+    private fun readDatabase() {
+        lifecycleScope.launch {
+            mainViewModel.readRecipes.observe(viewLifecycleOwner, { database ->
+                if (database.isNotEmpty()) {
+                    Log.d("VAY", "Read Database Olusturuldu")
+                    mAdapter.setData(database[0].foodRecipe)
+                    hideShimmerEffect()
+                } else {
+                    requestApiData()
+                }
+            })
+        }
+    }
+
+    private fun requestApiData() {
+        mainViewModel.getRecipes(recipesViewModel.applyQueries())
+        Log.d("VAY", "Request Api Olusturuldu")
+        mainViewModel.recipesResponse.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    hideShimmerEffect()
+                    response.data?.let { mAdapter.setData(it) }
+                }
+                is NetworkResult.Error -> {
+                    hideShimmerEffect()
+                    loadDataFromCache()
+                    Toast.makeText(requireContext(), response.message.toString(), Toast.LENGTH_LONG)
+                        .show()
+                }
+                is NetworkResult.Loading -> {
+                    showShimmerEffect()
+                }
+            }
+        })
+    }
+
+    private fun loadDataFromCache() {
+        lifecycleScope.launch {
+            mainViewModel.readRecipes.observe(viewLifecycleOwner,{database ->
+                if(database.isNotEmpty()){
+                    mAdapter.setData(database[0].foodRecipe)
+                }
+            })
+        }
     }
 
     private fun showShimmerEffect() {
