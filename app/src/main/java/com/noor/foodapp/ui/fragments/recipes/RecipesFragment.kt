@@ -15,6 +15,7 @@ import com.noor.foodapp.adapters.RecipesAdapter
 import com.noor.foodapp.databinding.FragmentRecipesBinding
 import com.noor.foodapp.util.Constants.Companion.API_KEY
 import com.noor.foodapp.util.NetworkResult
+import com.noor.foodapp.util.observeOnce
 import com.noor.foodapp.viewmodels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -54,7 +55,7 @@ class RecipesFragment : Fragment() {
 
     private fun readDatabase() {
         lifecycleScope.launch {
-            mainViewModel.readRecipes.observe(viewLifecycleOwner, { database ->
+            mainViewModel.readRecipes.observeOnce(viewLifecycleOwner, { database ->
                 if (database.isNotEmpty()) {
                     Log.d("VAY", "Read Database Olusturuldu")
                     mAdapter.setData(database[0].foodRecipe)
