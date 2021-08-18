@@ -38,8 +38,10 @@ class RecipesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentRecipesBinding.inflate(layoutInflater, container, false)
         // Inflate the layout for this fragment
+        binding = FragmentRecipesBinding.inflate(layoutInflater, container, false)
+        binding.lifecycleOwner = this
+        binding.mainViewModel = mainViewModel
 
         setupRecyclerView()
         readDatabase()

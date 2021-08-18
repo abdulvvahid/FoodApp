@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="mainViewModel"
+            type="com.noor.foodapp.viewmodels.MainViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -40,6 +46,8 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:alpha="0.5"
+            readApiResponse="@{mainViewModel.recipesResponse}"
+            readDatabase="@{mainViewModel.readRecipes}"
             android:src="@drawable/ic_dissatisfied"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -53,6 +61,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            readApiResponse2="@{mainViewModel.recipesResponse}"
+            readDatabase2="@{mainViewModel.readRecipes}"
             android:text="No Internet Connection"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
