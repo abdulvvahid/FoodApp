@@ -17,6 +17,9 @@
             android:name="backFromBottomSheet"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_recipesFragment_to_detailsActivity"
+            app:destination="@id/detailsActivity" />
     </fragment>
     <fragment
         android:id="@+id/favoriteRecipesFragment"
@@ -36,4 +39,12 @@
             android:id="@+id/action_recipesBottomSheet_to_recipesFragment"
             app:destination="@id/recipesFragment" />
     </dialog>
+    <activity
+        android:id="@+id/detailsActivity"
+        android:name="com.noor.foodapp.ui.DetailsActivity"
+        android:label="Details" >
+        <argument
+            android:name="result"
+            app:argType="com.noor.foodapp.models.Result" />
+    </activity>
 </navigation>
