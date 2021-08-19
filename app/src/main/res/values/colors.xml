@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="light_gray">#D3D3D3</color>
     <color name="dark_gray">#4B4B4B</color>
+    <color name="green">#6CFF62</color>
 
     // Chip Style
     <color name="checkedChipBackgroundColor">#206200EA</color>
