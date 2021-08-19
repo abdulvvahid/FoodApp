@@ -17,10 +17,13 @@ import com.noor.foodapp.viewmodels.MainViewModel
 import com.noor.foodapp.adapters.RecipesAdapter
 import com.noor.foodapp.databinding.FragmentRecipesBinding
 import com.noor.foodapp.util.Constants.Companion.API_KEY
+import com.noor.foodapp.util.NetworkListener
 import com.noor.foodapp.util.NetworkResult
 import com.noor.foodapp.util.observeOnce
 import com.noor.foodapp.viewmodels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -31,6 +34,7 @@ class RecipesFragment : Fragment() {
     private val mAdapter by lazy { RecipesAdapter() }
     private lateinit var mainViewModel: MainViewModel
     private lateinit var recipesViewModel: RecipesViewModel
+    private lateinit var networkListener: NetworkListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,8 +54,22 @@ class RecipesFragment : Fragment() {
         setupRecyclerView()
         readDatabase()
 
+        lifecycleScope.launch {
+            networkListener = NetworkListener()
+            networkListener.checkNetworkAvailability(requireContext())
+                .collect {
+                    Log.d("NetworkListener", it.toString())
+                    recipesViewModel.networkStatus = it
+                    recipesViewModel.showNetworkStatus()
+                }
+        }
+
         binding.recipesFab.setOnClickListener {
-            findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheet)
+            if (recipesViewModel.networkStatus) {
+                findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheet)
+            }else {
+                recipesViewModel.showNetworkStatus()
+            }
         }
 
         return binding.root
