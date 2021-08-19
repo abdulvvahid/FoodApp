@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.noor.foodapp.R
 import com.noor.foodapp.viewmodels.MainViewModel
@@ -26,6 +27,7 @@ import kotlinx.coroutines.launch
 class RecipesFragment : Fragment() {
 
     private lateinit var binding: FragmentRecipesBinding
+    private val args by navArgs<RecipesFragmentArgs>()
     private val mAdapter by lazy { RecipesAdapter() }
     private lateinit var mainViewModel: MainViewModel
     private lateinit var recipesViewModel: RecipesViewModel
@@ -64,7 +66,7 @@ class RecipesFragment : Fragment() {
     private fun readDatabase() {
         lifecycleScope.launch {
             mainViewModel.readRecipes.observeOnce(viewLifecycleOwner, { database ->
-                if (database.isNotEmpty()) {
+                if (database.isNotEmpty() && args.backFromBottomSheet.not()) {
                     Log.d("VAY", "Read Database Olusturuldu")
                     mAdapter.setData(database[0].foodRecipe)
                     hideShimmerEffect()
