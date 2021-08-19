@@ -2,14 +2,17 @@ package com.noor.foodapp.data
 
 import android.content.Context
 import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
+import com.noor.foodapp.data.DataStoreRepository.PreferenceKeys.backOnline
 import com.noor.foodapp.data.DataStoreRepository.PreferenceKeys.selectedDietType
 import com.noor.foodapp.data.DataStoreRepository.PreferenceKeys.selectedDietTypeId
 import com.noor.foodapp.data.DataStoreRepository.PreferenceKeys.selectedMealType
 import com.noor.foodapp.data.DataStoreRepository.PreferenceKeys.selectedMealTypeId
 import com.noor.foodapp.util.Constants.Companion.DEFAULT_DIET_TYPE
 import com.noor.foodapp.util.Constants.Companion.DEFAULT_MEAL_TYPE
+import com.noor.foodapp.util.Constants.Companion.PREFERENCES_BACK_ONLINE
 import com.noor.foodapp.util.Constants.Companion.PREFERENCES_DIET_TYPE
 import com.noor.foodapp.util.Constants.Companion.PREFERENCES_DIET_TYPE_ID
 import com.noor.foodapp.util.Constants.Companion.PREFERENCES_MEAL_TYPE
@@ -33,6 +36,7 @@ class DataStoreRepository @Inject constructor(
         val selectedMealTypeId = intPreferencesKey(PREFERENCES_MEAL_TYPE_ID)
         val selectedDietType = stringPreferencesKey(PREFERENCES_DIET_TYPE)
         val selectedDietTypeId = intPreferencesKey(PREFERENCES_DIET_TYPE_ID)
+        val backOnline = booleanPreferencesKey(PREFERENCES_BACK_ONLINE)
     }
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
@@ -74,6 +78,24 @@ class DataStoreRepository @Inject constructor(
             )
         }
 
+    suspend fun saveBackOnline(backOnl: Boolean) {
+        context.dataStore.edit { preferences ->
+            preferences[backOnline] = backOnl
+        }
+    }
+
+    val readBackOnline: Flow<Boolean> = context.dataStore.data
+        .catch { ex ->
+            if(ex is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw ex
+            }
+        }
+        .map {
+            val backOnline = it[backOnline] ?: false
+            backOnline
+        }
 }
 
 data class MealAndDietType(
