@@ -12,6 +12,7 @@ import coil.load
 import com.noor.foodapp.R
 import com.noor.foodapp.models.Result
 import com.noor.foodapp.ui.fragments.recipes.RecipesFragmentDirections
+import org.jsoup.Jsoup
 
 class RecipesRowBinding {
 
@@ -76,6 +77,15 @@ class RecipesRowBinding {
                         )
                     }
                 }
+            }
+        }
+
+        @BindingAdapter("parseHTML")
+        @JvmStatic
+        fun parseHTML(textView: TextView, desc: String?) {
+            if(desc != null) {
+                val description = Jsoup.parse(desc).text()
+                textView.text = description
             }
         }
 
