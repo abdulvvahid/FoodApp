@@ -23,18 +23,23 @@ class MainViewModel @Inject constructor(
     application: Application
 ): AndroidViewModel(application) {
 
-    // Room DB
+    /** Room DB */
     val readRecipes: LiveData<List<RecipesEntity>> = repository.local.readDatabase().asLiveData()
 
     private fun insertRecipes(recipesEntity: RecipesEntity) = viewModelScope.launch(Dispatchers.IO) {
         repository.local.insertRecipes(recipesEntity)
     }
 
-    // Retrofit
-    val recipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
+    /** Retrofit */
+    var recipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
+    var searchedRecipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
 
     fun getRecipes(queries: Map<String, String>) = viewModelScope.launch {
         getRecipesSafeCall(queries)
+    }
+
+    fun searchRecipes(searchQuery: Map<String, String>) = viewModelScope.launch {
+        searchRecipesSafeCall(searchQuery)
     }
 
     private suspend fun getRecipesSafeCall(queries: Map<String, String>) {
@@ -54,6 +59,21 @@ class MainViewModel @Inject constructor(
             }
         } else {
             recipesResponse.value = NetworkResult.Error("No Internet Connection.")
+        }
+    }
+
+    private suspend fun searchRecipesSafeCall(searchQuery: Map<String, String>) {
+        searchedRecipesResponse.value = NetworkResult.Loading()
+        if(hasInternetConnection()){
+            try {
+                val response = repository.remote.searchRecipes(searchQuery)
+                searchedRecipesResponse.value = handleFoodRecipesResponse(response)
+            } catch (e: Exception) {
+                searchedRecipesResponse.value = NetworkResult.Error("Recipes Not Found...")
+                Log.d("VAY","ViewModel Error: ${e.message.toString()}")
+            }
+        } else {
+            searchedRecipesResponse.value = NetworkResult.Error("No Internet Connection.")
         }
     }
 
