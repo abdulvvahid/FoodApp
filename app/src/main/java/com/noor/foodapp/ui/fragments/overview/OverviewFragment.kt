@@ -10,6 +10,8 @@ import coil.load
 import com.noor.foodapp.R
 import com.noor.foodapp.databinding.FragmentOverviewBinding
 import com.noor.foodapp.models.Result
+import com.noor.foodapp.util.Constants
+import com.noor.foodapp.util.Constants.Companion.RECIPE_RESULT_KEY
 import org.jsoup.Jsoup
 
 class OverviewFragment : Fragment() {
@@ -24,7 +26,7 @@ class OverviewFragment : Fragment() {
         binding = FragmentOverviewBinding.inflate(inflater, container, false)
 
         val args = arguments
-        val myBundle: Result? = args?.getParcelable("recipeBundle")
+        val myBundle: Result? = args?.getParcelable(RECIPE_RESULT_KEY)
 
         binding.mainImageView.load(myBundle?.image)
         binding.titleTextView.text = myBundle?.title
