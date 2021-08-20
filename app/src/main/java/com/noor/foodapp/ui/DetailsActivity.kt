@@ -2,6 +2,7 @@ package com.noor.foodapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
@@ -19,6 +20,7 @@ import com.noor.foodapp.ui.fragments.instructions.InstructionsFragment
 import com.noor.foodapp.ui.fragments.overview.OverviewFragment
 import com.noor.foodapp.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.Exception
 
 @AndroidEntryPoint
 class DetailsActivity : AppCompatActivity() {
@@ -61,7 +63,23 @@ class DetailsActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.details_menu, menu)
+        val menuItem = menu?.findItem(R.id.save_to_favorites_menu)
+        checkSavedRecipes(menuItem!!)
         return true
+    }
+
+    private fun checkSavedRecipes(menuItem: MenuItem) {
+        mainViewModel.readFavoritesRecipes.observe(this, { favoriteRecipes ->
+            try {
+                for (savedRecipe in favoriteRecipes) {
+                    if (savedRecipe.result == args.result) {
+                        changeMenuItemColor(menuItem, R.color.yellow)
+                    }
+                }
+            }catch (e: Exception) {
+                Log.d("DetailsActivity", e.message.toString())
+            }
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -76,7 +94,7 @@ class DetailsActivity : AppCompatActivity() {
     private fun saveToFavorites(item: MenuItem) {
         val favoritesEntity = FavoritesEntity(0, args.result)
         mainViewModel.insertFavoriteRecipe(favoritesEntity)
-        changeMenuItemColor(item)
+        changeMenuItemColor(item, R.color.yellow)
         showSnackBar()
     }
 
@@ -86,7 +104,7 @@ class DetailsActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun changeMenuItemColor(item: MenuItem) {
-        item.icon.setTint(ContextCompat.getColor(this, R.color.yellow))
+    private fun changeMenuItemColor(item: MenuItem, color: Int) {
+        item.icon.setTint(ContextCompat.getColor(this, color))
     }
 }
