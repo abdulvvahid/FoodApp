@@ -59,7 +59,7 @@
             android:id="@+id/likes_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="20dp"
             android:text="100"
             android:textColor="@color/white"
             android:textSize="16sp"

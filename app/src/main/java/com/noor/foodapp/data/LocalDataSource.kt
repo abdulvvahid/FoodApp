@@ -1,7 +1,7 @@
 package com.noor.foodapp.data
 
 import com.noor.foodapp.data.database.RecipesDAO
-import com.noor.foodapp.data.database.RecipesEntity
+import com.noor.foodapp.data.database.entities.RecipesEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

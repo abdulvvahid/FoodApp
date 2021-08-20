@@ -1,4 +1,4 @@
-package com.noor.foodapp.data.database
+package com.noor.foodapp.data.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

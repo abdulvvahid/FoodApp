@@ -7,13 +7,12 @@ import android.net.NetworkCapabilities
 import android.util.Log
 import androidx.lifecycle.*
 import com.noor.foodapp.data.Repository
-import com.noor.foodapp.data.database.RecipesEntity
+import com.noor.foodapp.data.database.entities.RecipesEntity
 import com.noor.foodapp.models.FoodRecipe
 import com.noor.foodapp.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
 import retrofit2.Response
 import javax.inject.Inject
 
