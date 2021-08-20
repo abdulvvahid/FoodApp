@@ -12,10 +12,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FoodApp">
-        <activity android:name=".ui.DetailsActivity"
+        android:theme="@style/Theme.FoodApp"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.DetailsActivity"
             android:label="Details"
-            android:theme="@style/DetailsActivityStyle"/>
+            android:theme="@style/DetailsActivityStyle" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
