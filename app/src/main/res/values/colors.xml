@@ -10,6 +10,8 @@
     <color name="light_gray">#D3D3D3</color>
     <color name="dark_gray">#4B4B4B</color>
     <color name="green">#6CFF62</color>
+    <color name="lightMediumGray">#80D1D1D1</color>
+    <color name="darker">#151820</color>
 
     // Chip Style
     <color name="checkedChipBackgroundColor">#206200EA</color>
@@ -18,4 +20,7 @@
     <color name="chipTextColor">@color/dark_gray</color>
 
     <color name="actionBarBackgroundStyle">@color/purple_500</color>
+    <color name="strokeColor">@color/lightMediumGray</color>
+    <color name="cardBackgroundColor">@color/white</color>
+    <color name="titleColor">@color/darker</color>
 </resources>
