@@ -23,6 +23,7 @@
     <color name="actionBarBackgroundStyle">@color/purple_500</color>
     <color name="strokeColor">@color/lightMediumGray</color>
     <color name="cardBackgroundColor">@color/white</color>
+    <color name="cardBackgroundLightColor">#30400398</color>
     <color name="titleColor">@color/darker</color>
 
     <color name="statusBarColor">@color/design_default_color_primary_dark</color>
