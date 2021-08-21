@@ -26,11 +26,11 @@ class FavoriteRecipesFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentFavoriteRecipesBinding.inflate(layoutInflater, container, false)
+        binding.lifecycleOwner = this
+        binding.mainViewModel = mainViewModel
+        binding.mAdapter = mAdapter
 
         setupRecyclerView(binding.favoriteRecipesRecyclerView)
-        mainViewModel.readFavoritesRecipes.observe(viewLifecycleOwner, { favoriteEntities ->
-            mAdapter.setData(favoriteEntities)
-        })
 
         return binding.root
     }

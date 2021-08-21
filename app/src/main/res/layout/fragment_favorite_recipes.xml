@@ -3,6 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="mainViewModel"
+            type="com.noor.foodapp.viewmodels.MainViewModel" />
+
+        <variable
+            name="mAdapter"
+            type="com.noor.foodapp.adapters.FavoriteRecipesAdapter" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,6 +22,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/favorite_recipes_recyclerView"
+            setData="@{mAdapter}"
+            viewVisibility="@{mainViewModel.readFavoritesRecipes}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -22,6 +35,7 @@
 
         <ImageView
             android:id="@+id/no_data_imageView"
+            viewVisibility="@{mainViewModel.readFavoritesRecipes}"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:alpha="0.5"
@@ -35,6 +49,7 @@
 
         <TextView
             android:id="@+id/no_data_textView"
+            viewVisibility="@{mainViewModel.readFavoritesRecipes}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
