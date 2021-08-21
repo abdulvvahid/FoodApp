@@ -8,14 +8,17 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.snackbar.Snackbar
 import com.noor.foodapp.R
 import com.noor.foodapp.data.database.entities.FavoritesEntity
 import com.noor.foodapp.databinding.FavoriteRecipesRowLayoutBinding
 import com.noor.foodapp.ui.fragments.favorite.FavoriteRecipesFragmentDirections
 import com.noor.foodapp.util.RecipesDiffUtil
+import com.noor.foodapp.viewmodels.MainViewModel
 
 class FavoriteRecipesAdapter(
-    private val requireActivity: FragmentActivity
+    private val requireActivity: FragmentActivity,
+    private val mainViewModel: MainViewModel
 ) : RecyclerView.Adapter<FavoriteRecipesAdapter.MyViewHolder>(), ActionMode.Callback {
 
     private var favoriteRecipes = emptyList<FavoritesEntity>()
@@ -24,6 +27,7 @@ class FavoriteRecipesAdapter(
     private var selectedRecipes = arrayListOf<FavoritesEntity>()
     private var myViewHolders = arrayListOf<MyViewHolder>()
     private lateinit var mActionMode: ActionMode
+    private lateinit var rootView: View
 
     class MyViewHolder(
         private val binding: FavoriteRecipesRowLayoutBinding
@@ -51,6 +55,7 @@ class FavoriteRecipesAdapter(
         myViewHolders.add(holder)
         val currentRecipe = favoriteRecipes[position]
         holder.bind(currentRecipe)
+        rootView = holder.itemView.rootView
 
         // Single Click Listener
         holder.itemView.findViewById<ConstraintLayout>(R.id.favorite_recipes_row_layout)
@@ -132,6 +137,16 @@ class FavoriteRecipesAdapter(
     }
 
     override fun onActionItemClicked(actionMode: ActionMode?, menu: MenuItem?): Boolean {
+        if(menu?.itemId == R.id.delete_favorite_recipe_menu) {
+            selectedRecipes.forEach {
+                mainViewModel.deleteFavoriteRecipe(it)
+            }
+            showSnackBar("${selectedRecipes.size} Recipe removed.")
+
+            multiSelection = false
+            selectedRecipes.clear()
+            actionMode?.finish()
+        }
         return true
     }
 
@@ -153,6 +168,16 @@ class FavoriteRecipesAdapter(
         val diffUtilResult = DiffUtil.calculateDiff(favoriteRecipesDiffUtil)
         favoriteRecipes = newFavoriteRecipes
         diffUtilResult.dispatchUpdatesTo(this)
+    }
+
+    private fun showSnackBar(message: String) {
+        Snackbar.make(
+            rootView,
+            message,
+            Snackbar.LENGTH_SHORT
+        ).setAction("Okay"){}
+            .show()
+
     }
 
 }
