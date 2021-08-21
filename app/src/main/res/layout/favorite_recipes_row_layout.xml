@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="favoriteEntity"
             type="com.noor.foodapp.data.database.entities.FavoritesEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/favoriteRecipesRowLayout"
+        android:id="@+id/favorite_recipes_row_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
