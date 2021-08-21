@@ -40,6 +40,7 @@ class FoodJokeFragment : Fragment() {
                     binding.foodJokeTextView.text = response.data?.text
                 }
                 is NetworkResult.Error -> {
+                    loadDataFromCache()
                     Toast.makeText(
                         requireContext(),
                         response.message.toString(),
@@ -58,7 +59,7 @@ class FoodJokeFragment : Fragment() {
     private fun loadDataFromCache() {
         lifecycleScope.launch {
             mainViewModel.readFoodJoke.observe(viewLifecycleOwner, { database ->
-                if(database.isNotEmpty() && database != null) {
+                if(database.isNullOrEmpty().not()) {
                     binding.foodJokeErrorTextView.text = database[0].foodJoke.text
                 }
             })
