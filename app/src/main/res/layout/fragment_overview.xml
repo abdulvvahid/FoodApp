@@ -7,9 +7,12 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/light_gray"
+        app:layoutDescription="@xml/fragment_overview_xml_constraintlayout_scene"
         tools:context=".ui.fragments.overview.OverviewFragment">
 
         <ImageView
@@ -220,6 +223,7 @@
             app:layout_constraintTop_toTopOf="@+id/cheap_imageView" />
 
         <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="12dp"
@@ -233,17 +237,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/summary_textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Summary"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
             </LinearLayout>
         </ScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>
