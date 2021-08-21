@@ -1,13 +1,13 @@
 package com.noor.foodapp.ui.fragments.favorite
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import com.noor.foodapp.R
 import com.noor.foodapp.adapters.FavoriteRecipesAdapter
 import com.noor.foodapp.databinding.FragmentFavoriteRecipesBinding
 import com.noor.foodapp.viewmodels.MainViewModel
@@ -30,6 +30,8 @@ class FavoriteRecipesFragment : Fragment() {
         binding.mainViewModel = mainViewModel
         binding.mAdapter = mAdapter
 
+        setHasOptionsMenu(true)
+
         setupRecyclerView(binding.favoriteRecipesRecyclerView)
 
         return binding.root
@@ -38,6 +40,23 @@ class FavoriteRecipesFragment : Fragment() {
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         recyclerView.adapter = mAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.favorite_recipes_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.delete_all_favorite_recipes) {
+            mainViewModel.deleteAllFavoriteRecipes()
+            Snackbar.make(
+                binding.root,
+                "All recipes removed.",
+                Snackbar.LENGTH_SHORT
+            ).setAction("Okay"){}
+                .show()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {
